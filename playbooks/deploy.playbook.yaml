@@ -1,0 +1,10 @@
+- name: Deploy app in k8s
+  hosts: localhost
+
+  tasks:
+    - name: deploy application
+      ansible.builtin.shell: kubectl apply -f {{ DEPLOYMENT_PATH }}
+    - name: deploy service 
+      ansible.builtin.shell: kubectl apply -f {{ SERVICE_PATH }}
+    - name : update deployment with the new image {{ IMAGE_TAG }}
+      ansible.builtin.shell: kubectl set image deployment/node-app-deployment node-app-container={{ IMAGE_TAG }}
